@@ -23,3 +23,15 @@ Reads an input prompt from the terminal and stores the generated images in the o
 python3 dalle2_python.py
 ```
 
+Input your prompt and check the images in the output folder ;)
+
+
+
+How to use it
+```python
+from dalle2_python import CommandLineDalle
+
+dalle = CommandLineDalle(img_sz="1024", n_images="4")
+dalle.generate_and_save_images()
+dalle.open_urls_in_browser()
+```
