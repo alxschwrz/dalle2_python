@@ -6,7 +6,7 @@ import urllib.request
 import openai
 
 
-class CommandLineDalle:
+class Dalle:
         def __init__(self, img_sz="512", n_images=2):
                 self._api_keys_location = "./config"
                 self._generated_image_location = "./output"
@@ -14,6 +14,7 @@ class CommandLineDalle:
                 self._img_sz = img_sz
                 self._n_images = n_images
                 self._image_urls = []
+                self._input_prompt = None
                 self._response = None
                 self.initialize_openai_api()
 
@@ -50,7 +51,7 @@ class CommandLineDalle:
                 del config
 
         def read_from_command_line(self):
-                self._input_prompt =  input("What image should dalle create: ")
+                self._input_prompt = input("What image should dalle create: ")
 
         def generate_image_from_prompt(self):
                 self._response = openai.Image.create(
@@ -58,7 +59,7 @@ class CommandLineDalle:
                         n=self._n_images,
                         size=f"{self._img_sz}x{self._img_sz}",
                 )
-
+                
         def get_urls_from_response(self):
                 for i in range(self._n_images):
                         self._image_urls.append(self._response['data'][i]['url'])
@@ -83,6 +84,6 @@ class CommandLineDalle:
                 self.get_urls_from_response()
                 self.save_urls_as_image()
 
-dalle = CommandLineDalle()
-dalle.generate_and_save_images()
-dalle.open_urls_in_browser()
+commandLineDalle = Dalle()
+commandLineDalle.generate_and_save_images()
+commandLineDalle.open_urls_in_browser()
